@@ -1,0 +1,16 @@
+.box{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    padding: 24px;
+    border: 1px solid gray;
+    border-radius: 6px;
+}
+
+button{
+    background-color: blueviolet;
+    color: bisque;
+}
