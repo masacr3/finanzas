@@ -1,70 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState} from 'react';
 import axios from 'axios';
-import './Saldo.css'
+import { useMontoContexto } from './Montocontext';
+import { ApiSaldo } from '../constantes/ApiFinanzas'
+import './Saldo.css';
+
+//import { ApiSaldo } from '../constantes/ApiFinanzas';
 
 const Saldo = () => {
-  const [saldo, setSaldo] = useState("");
-  const apiUrl = 'http://localhost:8000/finanzas/saldo';
-  useEffect(() => {
 
-    // Realizar la solicitud GET a la API utilizando Axios
-    axios.get(apiUrl)
+  const { montoActualizado } = useMontoContexto();
+  const [monto, setMonto] = useState(0);
+  const [cont, setCont] = useState(0);
+
+  useEffect(() => {
+    setCont(cont + 1)
+    console.log("Renderiso saldo ", cont + 1)
+      axios.get(ApiSaldo)
       .then(response => {
-        // Actualizar el estado del saldo con los datos de la API
-        //setSaldo(response.data.saldo);
-        console.log(response.data.data)
-        setSaldo(response.data.data)
+        console.log("se llamo al servidor ", cont + 1)
+        console.log(response.data.data);
+        setMonto(parseInt(response.data.data));
       })
       .catch(error => {
-        // Manejar errores, por ejemplo, mostrando un mensaje de error
         console.error('Error al cargar el saldo:', error);
       });
-  }, []); // El segundo argumento del useEffect, un array vacío, asegura que se ejecute solo una vez al montar el componente
-
-  // Renderizar el saldo en el componente
-
-
-  const [inputValue, setInputValue] = useState(''); // Estado para almacenar el valor del input
-
-  const handleInputChange = (event) => {
-    // Actualizar el estado del input cuando cambie
-    setInputValue(event.target.value);
-  };
-
-  const enviarDatos = () => {
-    // Realizar una solicitud POST usando Axios con el valor del input
-    const numero = parseInt(inputValue, 10); // Usa parseInt para enteros o parseFloat para números de punto flotante
-    axios.post(apiUrl, { saldo: numero })
-      .then(response => {
-        // Manejar la respuesta de la API, por ejemplo, mostrar un mensaje de éxito
-        console.log('Respuesta de la API:', response.data);
-        const nuevoSaldo = parseInt(saldo, 10) + numero 
-        setSaldo( nuevoSaldo.toString())
-        setInputValue('')
-      })
-      .catch(error => {
-        // Manejar errores, por ejemplo, mostrar un mensaje de error
-        console.error('Error al enviar datos:', error);
-      });
-  };
-
-
+  }, [montoActualizado]);
 
   return (
-    <div>
-      Salto Total {saldo}
-
-      <div className="box">
-        Agregar saldo
-        {/* Input para capturar los datos */}
-            <input 
-                type="number" 
-                value={inputValue} 
-                onChange={handleInputChange} 
-            placeholder="Introduce tus datos" 
-            />
-        {/* Botón para enviar los datos */}
-        <button onClick={enviarDatos}>Enviar Datos</button>
+    <div className='box pa-24'>
+      <div className='row'>
+        <span className='fm-toko fs-30'>Saldo</span> <span className='fm-toko fs-48'>$ {monto}</span>
       </div>
     </div>
   );
