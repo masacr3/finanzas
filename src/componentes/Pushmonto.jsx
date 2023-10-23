@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useMontoContexto } from './Montocontext'
+import BtonSend from './BtonSend'
 
 // eslint-disable-next-line react/prop-types
 function Pushmonto({url, children}) {
     const [inputValue, setInputValue] = useState('')
     const [enablePush, setEnablePush] = useState(false)
+    const [payload, setPayload] = useState({
+        method: 'post',
+        url: url,
+        data : { monto: 0 },
+        responseType: 'json',
+    })
 
     const { cambiarDato } = useMontoContexto();
 
@@ -13,6 +20,7 @@ function Pushmonto({url, children}) {
     const handleInputChange = (event) => {
         // Actualizar el estado del input cuando cambie
         setInputValue(event.target.value);
+        setPayload({...payload, data : { monto : parseInt(event.target.value,10)}});
         if (event.target.value.length > 0 && enablePush == false ){
             setEnablePush(true)
         }else{
@@ -23,31 +31,18 @@ function Pushmonto({url, children}) {
     
       };
     
-    const enviarDatos = () => {
-        if (inputValue.length == 0){
-            console.log("no hay nada q enviar")
-            return;
-        }
-        const numero  = parseInt(inputValue, 10);
-        const payload = { monto : numero }
-        axios({
-            method: 'post',
-            url: url,
-            data: payload,
-            responseType: 'json',
-          })
-          .then(response => {
-            console.log('Respuesta de la API:', response.data);
-            cambiarDato()
-            setInputValue('')
-            setEnablePush(false)
-        })
-        .catch(error => {
-            console.error('Error al enviar datos:', error);
-            setInputValue('')
-            setEnablePush(false)
-        });
-    };
+    const res = (response) =>{
+        console.log('Respuesta de la API:', response.data);
+        cambiarDato()
+        setInputValue('')
+        setEnablePush(false)
+    }
+
+    const errorC = (error) =>{
+        console.error('Error al enviar datos:', error);
+        setInputValue('')
+        setEnablePush(false)
+    }
 
     return (
         <div className="box">
@@ -66,11 +61,8 @@ function Pushmonto({url, children}) {
                 <span className={`off-select ${enablePush ? "color-verde" : "color-off"}`}>Pushear {children}</span>
                 { enablePush &&
                     <>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="17" viewBox="0 0 25 17" onClick={enviarDatos}>
-                            <path d="M16.25,0,14.488,1.712l5.725,5.574H0V9.714H20.212l-5.737,5.574L16.25,17,25,8.5Z" fill="#626262"></path>
-                        </svg>
+                        <BtonSend configuracion={payload} res={res} />
                     </>}
-                
             </div>
         </div>
     )

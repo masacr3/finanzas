@@ -2,7 +2,10 @@ import './App.css'
 import Saldo from './componentes/Saldo'
 import Pushmonto from './componentes/Pushmonto'
 import Montocontext from './componentes/Montocontext'
-import { ApiIngresarDinero, ApiGastos } from './constantes/ApiFinanzas'
+import { ApiIngresarDinero, ApiGastos, ApiResetMonto, ApiGastosDetallado, ApiIngresoDineroDetallado } from './constantes/ApiFinanzas'
+import  ResetMonto  from './componentes/ResetMonto'
+import MontoDetallado from './componentes/MonotDetallado'
+
 
 function App() {
 
@@ -16,6 +19,19 @@ function App() {
         <Pushmonto url={ApiGastos}>
           gasto
         </Pushmonto>
+        <ResetMonto url={ApiResetMonto} target="gastos">
+          gastos
+        </ResetMonto>
+        <ResetMonto url={ApiResetMonto} target="saldo">
+          saldo
+        </ResetMonto>
+        <MontoDetallado url={ApiGastosDetallado}>
+          Gasto detallado
+        </MontoDetallado>
+        <MontoDetallado url={ApiIngresoDineroDetallado}>
+          Ingreso detallado
+        </MontoDetallado>
+
       </Montocontext>
     </div>
   )
