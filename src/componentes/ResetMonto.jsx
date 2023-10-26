@@ -9,6 +9,10 @@ function ResetMonto({url, target, children}) {
   const res = (response) =>{
     cambiarDato();
   }
+
+  const error = () =>{
+    console.log("error")
+  }
   const payload = {
     method : 'delete',
     url : url + target
@@ -17,7 +21,7 @@ function ResetMonto({url, target, children}) {
     <div className='box'>
         <div className='row pa-24 full-w jc-center fm-toko fs-48'>
             <span>Resetear {children}</span>
-            <BtonSend configuracion={payload} res={res}/>
+            <BtonSend configuracion={payload} res={res} errorC={error}/>
         </div>
     </div>
   )

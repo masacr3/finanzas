@@ -31,11 +31,19 @@
     padding: 24px;
 }
 
+.pa-20{
+    padding: 20px;
+}
+
+.ma-40{
+    margin-bottom: 40px;
+}
+
 .ma-20{
     margin-bottom: 20px;
 }
 
-.ma-10px{
+.ma-10{
     margin-bottom: 10px;
 }
 
@@ -59,6 +67,14 @@ button{
 .row{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
     align-items: center;
     box-sizing: border-box;
 }
@@ -119,4 +135,17 @@ span{
 
 .color-off{
     color:gray;
+}
+
+
+.bton-pop{
+    
+    width: 90px;
+    height: 70px;
+    border: 1px solid rgb(145, 156, 133);
+    color: rgb(145, 156, 133);
+    border-radius: 6px;
+    font-family: 'Teko', sans-serif;
+    font-size: 30px;
+
 }
