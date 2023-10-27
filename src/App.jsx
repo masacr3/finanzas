@@ -5,13 +5,14 @@ import Montocontext from './componentes/Montocontext'
 import { ApiIngresarDinero, ApiGastos, ApiResetMonto, ApiGastosDetallado, ApiIngresoDineroDetallado, ApiPopGasto, ApiPopSaldo } from './constantes/ApiFinanzas'
 import  ResetMonto  from './componentes/ResetMonto'
 import MontoDetallado from './componentes/MontoDetallado'
+import Main from './rutas/Main'
 
 
 function App() {
 
   return (
     <div className='container-app'>
-      <Montocontext>
+      {/* <Montocontext>
         <Saldo/>
         <Pushmonto url={ApiIngresarDinero}>
           saldo
@@ -32,7 +33,8 @@ function App() {
           Ingreso detallado
         </MontoDetallado>
 
-      </Montocontext>
+      </Montocontext> */}
+      <Main />
     </div>
   )
 }
