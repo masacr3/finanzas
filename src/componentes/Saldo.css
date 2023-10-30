@@ -79,14 +79,14 @@ button{
     box-sizing: border-box;
 }
 
-input{
+/* input{
     outline: none;
     border: none;
     background-color: transparent;
     color: gray;
     box-sizing: border-box;
     width: 100%;
-}
+} */
 
 span{
     margin-right: 20px;
@@ -139,7 +139,6 @@ span{
 
 
 .bton-pop{
-    
     width: 90px;
     height: 70px;
     border: 1px solid rgb(145, 156, 133);
@@ -147,8 +146,17 @@ span{
     border-radius: 6px;
     font-family: 'Teko', sans-serif;
     font-size: 30px;
-
 }
+
+.bton-send{
+    width: 100px;
+    height: 50px;
+    border: 1px solid rgb(70, 67, 62);
+    border-radius: 6px;
+    font-family: 'Teko', sans-serif;
+    font-size: 24px;
+}
+
 
 .off-serve{
     width: 300px;
@@ -159,3 +167,6 @@ span{
     height: 85vh;
 }
 
+.box-login-h{
+    height: 300px;
+}
