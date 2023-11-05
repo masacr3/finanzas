@@ -43,7 +43,7 @@ function Offserve() {
 
   return (
     <div className='row full-h jc-center'>
-        <img src={imgServe} className='off-serve' />
+        <img src={imgServe} className='off-serve' onClick={logoutapp} />
     </div>
   )
 }

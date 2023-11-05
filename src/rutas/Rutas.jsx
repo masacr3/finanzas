@@ -6,23 +6,26 @@ import { Route, Routes } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthProvider'
 
-function Rutas() {
+
+function ProtectRoute({ component : Component , redirect, ...res}){
   const {isLoggedIn} = useAuth();
 
-  // Lógica condicional para decidir qué mostrar
-  const renderElement = () => {
-    if (isLoggedIn) {
-      return <Offserve />;
-    } else {
-      return <Navigate to="/login" />;
-    }
-  };
+  if (isLoggedIn){
+    return <Component {...res} />
+  }else{
+    return <Navigate to={redirect} />
+  }
+}
+
+
+function Rutas() {
+  const {isLoggedIn} = useAuth();
 
   return (
     <Routes>
       <Route path="/" index element={<Crendenciales />}/>
-      <Route path="/home" element={ renderElement } />
-      <Route path="/login" element={ <Login />} />
+      <Route path="/home" element={<ProtectRoute component={Offserve} redirect="/login" /> } />
+      <Route path="/login" element={ isLoggedIn ? <Navigate to="/home" /> : <Login />} />
       {/* Otras rutas protegidas */}
     </Routes>
   )
